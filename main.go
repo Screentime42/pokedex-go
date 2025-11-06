@@ -58,9 +58,22 @@ var commands = map[string]cliCommand {
 		description:	"Exit the Pokedex",
 		callback:		commandExit,
 	},
+	"help": {
+		name:				"help",
+		description: 	"Displays help commands",
+		callback:		help,
+	},
 }
 
 func commandExit() {
 	fmt.Println("Closing the Pokedex... Goodbye!")
 	os.Exit(0)
+}
+
+func help() {
+	fmt.Println(`Welcome to the Pokedex!
+Usage:
+
+help: Displays a help message
+exit: Exit the Pokedex`)
 }
