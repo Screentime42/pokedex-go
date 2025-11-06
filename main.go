@@ -5,6 +5,9 @@ import (
 	"strings"
 	"bufio"
 	"os"
+	"net/http"
+	"io"
+	"encoding/json"
 )
 
 func main() {
@@ -63,6 +66,16 @@ var commands = map[string]cliCommand {
 		description: 	"Displays help commands",
 		callback:		help,
 	},
+	"map": {
+		name:				"map",
+		description:	"Displays 20 entries of map-areas - if already used displays the next 20 entries",
+		callback: 		locationAreas,
+	},
+	"mapb": {
+		name:				"mapb",
+		description: 	"MapBack - Displayed the previous 20 entries",
+		callback: 		prevLocationAreas,
+	},
 }
 
 func commandExit() {
@@ -77,3 +90,63 @@ Usage:
 help: Displays a help message
 exit: Exit the Pokedex`)
 }
+
+type LocationAreasResponse struct {
+	Count			int					`json:"count"`
+	Next			string				`json:"next"`
+	Previous 	*string				`json:"previous"`
+	Results		[]LocationResult	`json:"results"`
+}
+
+type LocationResult struct {
+	Name			string				`json:"name"`
+	URL			string				`json:"url"`
+}
+
+
+var page int = 0
+const pageSize = 20
+
+func locationAreas() {
+	page++
+	fetchLocationAreas((page - 1) * pageSize)
+	
+}
+
+func prevLocationAreas() {
+	if page > 1 {
+		page--
+		fetchLocationAreas((page - 1) * pageSize)
+	} else {
+		fmt.Println("You're on the first page.")
+	}
+}
+
+
+func fetchLocationAreas(offset int) {
+	url := fmt.Sprintf("https://pokeapi.co/api/v2/location-area?limit=20&offset=%d", offset)
+	resp, err := http.Get(url)
+	if err != nil {
+		fmt.Println("Request failed:", err)
+		return
+	}
+
+	defer resp.Body.Close()
+
+	body, err := io.ReadAll(resp.Body)
+	if err != nil {
+		fmt.Println("Failed to read response:", err)
+		return
+	}
+
+	var data LocationAreasResponse
+	if err := json.Unmarshal(body, &data); err != nil {
+		fmt.Println("Failed to parse JSON:", err)
+		return
+	}
+
+	for _, loc := range data.Results {
+		fmt.Printf("%s\n", loc.Name)
+	}
+}
+
