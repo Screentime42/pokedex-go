@@ -5,6 +5,9 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"time"
+
+	pokecache "pokedex-go/internal/cache"
 )
 
 type LocationAreasResponse struct {
@@ -21,9 +24,21 @@ type LocationResult struct {
 
 
 
-
+var locationCache = pokecache.NewCache(5 * time.Second)
 
 func FetchLocationAreas(offset int) {
+	key := fmt.Sprintf("offset:%d", offset)
+
+	if data,ok := locationCache.Get(key); ok {
+		var cached LocationAreasResponse
+		if err := json.Unmarshal(data, &cached); err == nil {
+			for _, loc := range cached.Results {
+				fmt.Printf("%s\n", loc.Name)
+			}
+			return
+		}
+	}
+	
 	url := fmt.Sprintf("https://pokeapi.co/api/v2/location-area?limit=20&offset=%d", offset)
 	resp, err := http.Get(url)
 	if err != nil {
@@ -38,6 +53,8 @@ func FetchLocationAreas(offset int) {
 		fmt.Println("Failed to read response:", err)
 		return
 	}
+
+	locationCache.Add(key, body)
 
 	var data LocationAreasResponse
 	if err := json.Unmarshal(body, &data); err != nil {
