@@ -24,7 +24,7 @@ type LocationResult struct {
 
 
 
-var locationCache = pokecache.NewCache(5 * time.Second)
+var locationCache = pokecache.NewCache(5 * time.Minute)
 
 func FetchLocationAreas(offset int) {
 	key := fmt.Sprintf("offset:%d", offset)

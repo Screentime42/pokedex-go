@@ -3,7 +3,7 @@ package commands
 type CliCommand struct {
 		Name			string
 		Description	string
-		Callback		func()
+		Callback		func(args []string)
 }
 
 
@@ -27,5 +27,10 @@ var CommandMap = map[string]CliCommand {
 		Name:				"mapb",
 		Description: 	"MapBack - Displayed the previous 20 entries",
 		Callback: 		prevLocationAreas,
+	},
+	"explore": {
+		Name:				"explore",
+		Description:	"Shows all the Pokemon available to be encountered within the area",
+		Callback:		commandExplore,
 	},
 }

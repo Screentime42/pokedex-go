@@ -23,9 +23,10 @@ func main() {
 		input := strings.TrimSpace(scanner.Text())
 		words := cleanInput(input)
 		cmdName := words[0]
+		args := words[1:]
 
 		if cmd, ok := cmds.CommandMap[cmdName]; ok {
-			cmd.Callback()
+			cmd.Callback(args)
 		} else {
 			fmt.Println("Unknown command")
 		}

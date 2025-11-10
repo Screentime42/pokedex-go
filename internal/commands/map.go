@@ -8,13 +8,13 @@ import (
 var page int = 0
 const pageSize = 20
 
-func locationAreas() {
+func locationAreas(args []string) {
 	page++
 	api.FetchLocationAreas((page - 1) * pageSize)
 	
 }
 
-func prevLocationAreas() {
+func prevLocationAreas(args []string) {
 	if page > 1 {
 		page--
 		api.FetchLocationAreas((page - 1) * pageSize)

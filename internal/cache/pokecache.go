@@ -17,9 +17,6 @@ type cacheEntry struct {
 }
 
 
-
-
-
 func (c *Cache) Add(key string, val []byte) {
 	c.mu.Lock()
 	entry := cacheEntry{

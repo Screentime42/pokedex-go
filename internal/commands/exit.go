@@ -5,7 +5,7 @@ import (
 	"os"
 ) 
 
-func commandExit() {
+func commandExit(args []string) {
 	fmt.Println("Closing the Pokedex... Goodbye!")
 	os.Exit(0)
 }
