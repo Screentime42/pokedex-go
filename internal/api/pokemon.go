@@ -12,9 +12,32 @@ import (
 )
 
 type PokemonData struct {
-	Name		string		`json:"name"`
-	BaseXP	int			`json:"base_experience"`
+	Name			string			`json:"name"`
+	BaseXP		int				`json:"base_experience"`
+	Height		int				`json:"height"`
+	Weight		int				`json:"weight"`
+	Stats			[]StatWrapper	`json:"stats"`
+	Types			[]TypeWrapper	`json:"types"`
 }
+
+
+type StatWrapper struct {
+	BaseStat 	int				`json:"base_stat"`
+	Stat			StatDetails		`json:"stat"`
+}
+
+type StatDetails struct {
+	Name 			string			`json:"name"`
+}
+
+type TypeWrapper struct {
+	Type			TypeDetails		`json:"type"`
+}
+
+type TypeDetails struct {
+	Name			string			`json:"name"`
+}
+
 
 var pokemonCache = pokecache.NewCache(1 * time.Hour)
 

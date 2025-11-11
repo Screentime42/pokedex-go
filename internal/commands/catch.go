@@ -31,7 +31,8 @@ func commandCatch(args []string) {
 
 	if checkCatch(catch.BaseXP) {
 		fmt.Printf("%s was caught!\n", name)
-		Pokedex[name] = catch
+		key := strings.ToLower(name)
+		Pokedex[key] = catch
 	} else {
 		fmt.Printf("%s escaped!\n", name)
 	}
