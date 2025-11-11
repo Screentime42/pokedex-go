@@ -43,4 +43,9 @@ var CommandMap = map[string]CliCommand {
 		Description: 	"Inspect the stats of a caught Pokemon",
 		Callback: 		commandInspect,
 	},
+	"pokedex": {
+		Name:				"pokedex",
+		Description:	"List the pokemon you have caught",
+		Callback:		commandPokedex,
+	},
 }

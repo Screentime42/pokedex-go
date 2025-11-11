@@ -33,6 +33,7 @@ func commandCatch(args []string) {
 		fmt.Printf("%s was caught!\n", name)
 		key := strings.ToLower(name)
 		Pokedex[key] = catch
+		fmt.Println("You may now inspect it with the inspect command.")
 	} else {
 		fmt.Printf("%s escaped!\n", name)
 	}

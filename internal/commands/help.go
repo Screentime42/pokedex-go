@@ -13,5 +13,6 @@ Usage:
 - explore <location-area-name>: displays Pokemon encounters found in the area.
 - catch <pokemon-name>: attempt to catch a pokemon!
 - inspect <pokemon-name>: display the stats of a caught pokemon.
+- pokedex: lists the pokemon you have caught.
 	`)
 }
