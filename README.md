@@ -31,11 +31,14 @@ Once inside the REPL, you can type commands to interact with the Pokédex.
 
 Example commands:
 
-    help            # Show available commands
-    exit            # Quit the REPL
-    catch <name>    # Attempt to catch a Pokémon by name
-    inspect <name>  # View details of a caught Pokémon
-    map             # Explore the Pokémon world map
+    help: Displays a help message.
+    exit: Exit the Pokedex.
+    map: Show next 20 location areas.
+    mapb: Show previous 20 location areas.
+    explore <location-area-name>: displays Pokemon encounters found in the area.
+    catch <pokemon-name>: attempt to catch a pokemon!
+    inspect <pokemon-name>: display the stats of a caught pokemon.
+    pokedex: lists the pokemon you have caught.
 
 (Commands may evolve as the project grows — check main.go and repl_test.go for the latest behavior.)
 
